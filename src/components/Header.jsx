@@ -5,7 +5,7 @@ import logo from '../assets/logo.png'
 
 const Header = () => {
   return (
-    <Navbar collapseOnSelect fixed='top'  bg="light" expand='lg' className="mb-3 bg-opacity-50">
+    <Navbar collapseOnSelect sticky='top'  bg="light" expand='lg' className="bg-opacity-50">
       <Container>
         <Navbar.Brand >
           <Link to='../' className=' my-0'>

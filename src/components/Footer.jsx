@@ -10,29 +10,29 @@ const Footer = () => {
         <Container className="container-fluid">
           <section className="mt-5">
             <Row className="text-center d-flex justify-content-center pt-5">
-              <Col xs={2}>
+              <Col xs={3}>
                 <h6 className="text-uppercase font-weight-bold">
                   <Link to='../' className='link-success'>Home</Link>
                 </h6>
               </Col>
-              <Col xs={2}>
+              <Col xs={3}>
                 <h6 className="text-uppercase font-weight-bold">
                   <Link to='../about' className='link-success'>About</Link>
                 </h6>
               </Col>
-              <Col xs={2}>
+              <Col xs={3}>
                 <h6 className="text-uppercase font-weight-bold">
                   <Link to='../store' className='link-success'>Product</Link>
                 </h6>
               </Col>
-              <Col xs={2}>
+              <Col xs={3}>
                 <h6 className="text-uppercase font-weight-bold">
                   <Link to='../contact' className='link-success'>Contact</Link>
                 </h6>
               </Col>
-              <Col xs={2}>
+              <Col xs={12} className="mt-3 mb-0">
                 <h6 className="text-uppercase font-weight-bold">
-                  <Link to='../login' className='link-success'>Login</Link>
+                  <Link to='../login' className='btn btn-outline-success'>Login</Link>
                 </h6>
               </Col>
 

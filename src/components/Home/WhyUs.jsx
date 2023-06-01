@@ -3,14 +3,14 @@ import { Card, Col, Container, Row } from 'react-bootstrap';
 
 const WhyUs = () => {
   return (
-    <div className="vh-100 d-flex align-items-center">
+    <div className="d-flex align-items-center">
       <Container>
         <Row>
           <div>
             <p className="h2 w-75 mx-auto text-uppercase text-center">why choose us?</p>
             <hr className="w-25 mx-auto mb-3" />
           </div>
-          <Col xs={ 10 } md={ 6 } className='p-3'>
+          <Col xs={ 10 } md={ 6 } className='p-3 mx-auto'>
             <Card className='shadow'>
               <Card.Body>
                 <p className="h5 text-center mb-4 text-uppercase">flexible solutions</p>
@@ -18,7 +18,7 @@ const WhyUs = () => {
               </Card.Body>
             </Card>
           </Col>
-          <Col xs={ 10 } md={ 6 } className='p-3'>
+          <Col xs={ 10 } md={ 6 } className='p-3 mx-auto'>
             <Card className='shadow'>
               <Card.Body>
                 <p className="h5 text-center mb-4 text-uppercase">Experience</p>
@@ -26,7 +26,7 @@ const WhyUs = () => {
               </Card.Body>
             </Card>
           </Col>
-          <Col xs={ 10 } md={ 6 } className='p-3'>
+          <Col xs={ 10 } md={ 6 } className='p-3 mx-auto'>
             <Card className='shadow'>
               <Card.Body>
                 <p className="h5 text-center mb-4 text-uppercase">High-quality Products</p>
@@ -34,7 +34,7 @@ const WhyUs = () => {
               </Card.Body>
             </Card>
           </Col>
-          <Col xs={ 10 } md={ 6 } className='p-3'>
+          <Col xs={ 10 } md={ 6 } className='p-3 mx-auto'>
             <Card className='shadow'>
               <Card.Body>
                 <p className="h5 text-center mb-4 text-uppercase">High performance</p>

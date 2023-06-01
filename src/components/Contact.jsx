@@ -5,7 +5,7 @@ const Contact = () => {
   return (
     <div className='vh-100 d-flex align-items-center'>
       <Container fluid>
-        <Row>
+        <Row className='g-2'>
           <div>
             <p className="h2 w-75 mx-auto text-center text-uppercase">Contact Us</p>
             <hr className="w-25 mx-auto" />
@@ -39,12 +39,12 @@ const Contact = () => {
                     </FloatingLabel>
                   </Col>
                   <Col xs={ 12 }  className='text-end'>
-                    <Button variant='outline-primary' className=' text-capitalize'>send your message</Button>
+                    <Button variant='outline-success' className=' text-capitalize'>send your message</Button>
                   </Col>
               </Row>
             </Form>
           </Col>
-          <Col xs={ 12 } md={ 5 } className='my-auto'>
+          <Col xs={ 12 } md={ 5 } className='my-auto pt-3'>
             <p className='h6 text-capitalize fw-bold'>Visit us at plot 5-10, Abe Koko Street, Opa village, Odo-on kekere, off old Lagos road, ibadan
             </p>
             <p className='h6 text-capitalize fw-bold'>phone number: +234 8095107022, +234 8055114497
