@@ -1,4 +1,5 @@
-import React from 'react'
+//This is the ui design for each single product that was mapped from the parent component. 
+import React from 'react';
 import { Col, Card, Button } from 'react-bootstrap'
 import { BsInfoCircle } from 'react-icons/bs'
 import { Link } from 'react-router-dom';

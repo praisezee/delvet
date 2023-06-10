@@ -1,4 +1,5 @@
-import React from 'react'
+//This is the componebt that handels the product if there ar product in the array or not
+import React from 'react';
 import {Container, Row} from 'react-bootstrap'
 import SingleProduct from './SingleProduct';
 
