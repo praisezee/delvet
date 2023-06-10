@@ -1,10 +1,14 @@
 import { Route, Routes } from "react-router-dom";
 import Layout from './Layout'
 import Home from "./components/Home";
+import StoreHome from "./components/store/Home";
 import About from "./components/About";
 import Contact from "./components/Contact";
 import Register from "./components/Register";
 import Login from "./components/Login";
+import Store from "./components/Store";
+import Details from "./components/store/Details";
+import Missing from "./components/Missing";
 
 function App() {
   return (
@@ -14,9 +18,12 @@ function App() {
         <Route path="about" element={<About/>}/>
         <Route path="contact" element={ <Contact /> } />
         <Route path="register" element={ <Register /> } />
-        <Route path="login" element={<Login/>} />
+        <Route path="login" element={ <Login /> } />
+        <Route path="*" element={<Missing/>}/>
       </Route>
-      <Route path="store">
+      <Route path="store" element={ <Store /> }>
+        <Route index element={ <StoreHome /> } />
+        <Route path=":id" element={<Details/>}/>
       </Route>
     </Routes>
   )
