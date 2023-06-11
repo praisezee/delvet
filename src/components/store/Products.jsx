@@ -14,7 +14,7 @@ const Products = ( { products } ) =>
             <hr className="w-25 mx-auto" />
           </div>
           { products.map( product => (
-            <SingleProduct product={product}/>
+            <SingleProduct key={product.id} product={product} to={`../store/${product.id}`} />
           ) ) }
         </>
       </Row>

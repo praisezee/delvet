@@ -1,4 +1,4 @@
-import React from 'react'
+//This is the login page componet. included is the persistent login enable and disable checkbox
 import { Button, Col, Container, FloatingLabel, FormCheck, FormControl, Row } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 

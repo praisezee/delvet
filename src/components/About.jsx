@@ -1,4 +1,4 @@
-import React from 'react'
+// Brief description about Delvet company.
 import { Col, Container, Row } from 'react-bootstrap';
 import img from '../assets/delvet - point of lay.jpg'
 

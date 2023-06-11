@@ -9,6 +9,7 @@ import Login from "./components/Login";
 import Store from "./components/Store";
 import Details from "./components/store/Details";
 import Missing from "./components/Missing";
+import Cart from "./components/store/Cart";
 
 function App() {
   return (
@@ -23,7 +24,8 @@ function App() {
       </Route>
       <Route path="store" element={ <Store /> }>
         <Route index element={ <StoreHome /> } />
-        <Route path=":id" element={<Details/>}/>
+        <Route path=":id" element={ <Details /> } />
+        <Route path="cart" element={<Cart/>}/>
       </Route>
     </Routes>
   )

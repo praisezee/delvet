@@ -1,4 +1,4 @@
-import React from 'react'
+// Component holding the contact for and contact details of the company
 import { Col, Container, FloatingLabel,Button, Form, FormControl, Row } from 'react-bootstrap';
 
 const Contact = () => {
