@@ -10,6 +10,8 @@ import Store from "./components/Store";
 import Details from "./components/store/Details";
 import Missing from "./components/Missing";
 import Cart from "./components/store/Cart";
+import Api from "./components/store/Api";
+import Vacine from "./components/store/Vacine";
 
 function App() {
   return (
@@ -22,10 +24,16 @@ function App() {
         <Route path="login" element={ <Login /> } />
         <Route path="*" element={<Missing/>}/>
       </Route>
-      <Route path="store" element={ <Store /> }>
-        <Route index element={ <StoreHome /> } />
-        <Route path=":id" element={ <Details /> } />
-        <Route path="cart" element={<Cart/>}/>
+      <Route element={ <Store /> }>
+        <Route path='store' >
+          <Route index element={<StoreHome/>}/>
+          <Route path=":id" element={ <Details /> } />
+        </Route>
+        <Route path="cart" element={<Cart/>}/>     
+        <Route path="category">
+          <Route path="api" element={<Api/>}/>     
+          <Route path="vacines" element={<Vacine/>}/>   
+        </Route>  
       </Route>
     </Routes>
   )

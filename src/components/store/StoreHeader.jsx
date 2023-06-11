@@ -13,7 +13,7 @@ const StoreHeader = () => {
             <img src={ logo } className='my-0' alt="" width={100}/>
           </Link>
         </Navbar.Brand>
-        <Link to='../store/cart' className=' ms-auto btn btn-outline-success me-4 p-2'>
+        <Link to='../cart' className=' ms-auto btn btn-outline-success me-4 p-2'>
           <BsCart4 className='fs-4'/>
         </Link>
         <Navbar.Toggle aria-controls='offcanvasNavbar-expand-lg'/>
@@ -37,10 +37,10 @@ const StoreHeader = () => {
                 <Link to='../store' className=' nav-link text-light-emphasis'>All Products</Link>
               </NavLink>
               <NavLink eventKey={1}>
-                <Link to='../store/api' className=' nav-link text-light-emphasis'>API Drugs</Link>
+                <Link to='../category/api' className=' nav-link text-light-emphasis'>API Drugs</Link>
               </NavLink>
               <NavLink eventKey={1}>
-                <Link to='../store/vacines' className=' nav-link text-light-emphasis'>Vacines</Link>
+                <Link to='../category/vacines' className=' nav-link text-light-emphasis'>Vacines</Link>
               </NavLink>
               <NavLink eventKey={1}>
                 <Link to='../login' className=' nav-link text-light-emphasis'>Login</Link>
