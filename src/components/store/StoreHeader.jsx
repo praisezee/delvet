@@ -9,7 +9,7 @@ const StoreHeader = () => {
     <Navbar collapseOnSelect sticky='top'  bg="light" expand='none' className="bg-opacity-50">
       <Container>
         <Navbar.Brand >
-          <Link to='../' className=' my-0'>
+          <Link to='../store' className=' my-0'>
             <img src={ logo } className='my-0' alt="" width={100}/>
           </Link>
         </Navbar.Brand>
@@ -34,13 +34,13 @@ const StoreHeader = () => {
                 />
               </div>
               <NavLink eventKey={1}>
-                <Link to='../' className=' nav-link text-light-emphasis'>All Products</Link>
+                <Link to='../store' className=' nav-link text-light-emphasis'>All Products</Link>
               </NavLink>
               <NavLink eventKey={1}>
-                <Link to='../about' className=' nav-link text-light-emphasis'>API Drugs</Link>
+                <Link to='../store/api' className=' nav-link text-light-emphasis'>API Drugs</Link>
               </NavLink>
               <NavLink eventKey={1}>
-                <Link to='../contact' className=' nav-link text-light-emphasis'>Vacines</Link>
+                <Link to='../store/vacines' className=' nav-link text-light-emphasis'>Vacines</Link>
               </NavLink>
               <NavLink eventKey={1}>
                 <Link to='../login' className=' nav-link text-light-emphasis'>Login</Link>

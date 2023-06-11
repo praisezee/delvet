@@ -1,17 +1,16 @@
 // This is a page where the details of each item of the product will be viewed with their description. Users will also be able to add item placed here to their cart except for the API drugs.
 import { Button, Col, Container, Row } from 'react-bootstrap';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import useMainContext from '../../hooks/useMainContext'
 import { BsDash, BsPlus } from 'react-icons/bs';
 import Category from './Category';
 
 const Details = () =>
 {
-  const navigate = useNavigate()
   const { id } = useParams()
   const { products, addToCart } = useMainContext();
-  const product = products.find( p => p.id.toString() === id ? p : navigate('/missing') )
-  const category = products.filter( p => p.id.toString() !== id );
+  const product = products.find( p => p.id.toString() === id  )
+  const category = products.filter( p => p.id.toString() !== id && p.category === product.category );
   return (
     <Container fluid>
       <Row className='my-3'>
@@ -26,7 +25,7 @@ const Details = () =>
             { product?.category === 'api' ?
               (
                 <>
-                  <p className=" fw-bold">This product? price will be known based on the quantity wanted.</p>
+                  <p className=" fw-bold">This product's price will be known based on the quantity wanted.</p>
                   <div className="mx-auto text-center">
                     <Button variant='outline-success'>Contact for Price</Button>
                   </div>

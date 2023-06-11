@@ -35,11 +35,11 @@ const SingleProduct = ( {product,to} ) =>
                   ) : (
                     <div className='d-flex justify-content-evenly'>
                       <Button variant='outline-danger' onClick={()=> decrement(product.id)} >
-                        <BsDash className=' fs-1'/>
+                        <BsDash/>
                       </Button>
-                      <span className='h4 my-auto'>{ product.count }</span>
+                      <span className='h6 my-auto'>{ product.count }</span>
                       <Button variant='outline-success' onClick={()=> increment(product.id)}>
-                        <BsPlus  className=' fs-1'/>
+                        <BsPlus/>
                       </Button>
                     </div>
                   )
