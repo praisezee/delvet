@@ -7,7 +7,7 @@ export const StoreProduct = [
             "id":1,
             "name": "amoxicillin Trihydrate",
             "src":amoxicillinTrihydrate,
-            "category": "ap",
+            "category": "api",
             "price": 100,
             "description": `Molecular Formula: C16H27N3O9S
                   CAS Number: 61336-70-7
