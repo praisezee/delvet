@@ -3,12 +3,14 @@
 // The product array is in the context api ceated in this project
 import Products from './Products';
 import useMainContext from '../../hooks/useMainContext';
+import ProductCarousel from './ProductCarousel';
 
 const StoreHome = () =>
 {
   const {products} = useMainContext()
   return (
     <main className='h-screen'>
+      <ProductCarousel/>
       { products?.length ? (
         <Products products={products} text='Our product'/>
       ): (

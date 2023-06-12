@@ -4,16 +4,18 @@ import { useParams } from 'react-router-dom';
 import useMainContext from '../../hooks/useMainContext'
 import { BsDash, BsPlus } from 'react-icons/bs';
 import Category from './Category';
+import Missing from '../Missing'
 
 const Details = () =>
 {
   const { id } = useParams()
-  const { products, addToCart } = useMainContext();
-  const product = products.find( p => p.id.toString() === id  )
-  const category = products.filter( p => p.id.toString() !== id && p.category === product.category );
+  const { products, addToCart, increment, decrement } = useMainContext();
+  const product = products.find( p => p.id.toString() === id )
   return (
     <Container fluid>
-      <Row className='my-3'>
+      { product ? (
+        <>
+        <Row className='my-3'>
         <Col xs={ 10 } md={ 6 } lg={ 4 } className='mx-auto my-auto'>
           <img src={product?.src} alt={product?.name} className='img-fluid my-auto rounded shadow-sm' />
         </Col>
@@ -38,11 +40,11 @@ const Details = () =>
                       <Button variant='outline-success' onClick={()=>addToCart(product?.id)}>Add to cart</Button>
                     ) : (
                       <div className='d-flex justify-content-evenly'>
-                        <Button variant='outline-danger'>
+                        <Button variant='outline-danger' onClick={()=>decrement(product.id)}>
                           <BsDash className=' fs-1'/>
                         </Button>
                         <span className='h4 my-auto'>{ product?.count }</span>
-                        <Button variant='outline-success'>
+                        <Button variant='outline-success' onClick={()=>increment(product.id)}>
                           <BsPlus  className=' fs-1'/>
                         </Button>
                       </div>
@@ -61,8 +63,12 @@ const Details = () =>
           </p>
           <hr className="w-25 mx-auto" />
         </div>
-        <Category category={category}/>
-      </Row>
+            <Category category={ products.filter( p => p.id.toString() !== id && p.category === product.category )}/> 
+          </Row>
+        </>
+      ) : (
+          <Missing/>
+      )}
     </Container>
   )
 }

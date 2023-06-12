@@ -11,15 +11,16 @@ const MainContext = createContext( {} );
 export const MainProvider = ( { children } ) =>
 {
       const navigate = useNavigate()
-      const [ products, setProducts ] = useState( [] )
+      const [ products, setProducts ] = useState( StoreProduct )
       const [ cart, setCart ] = useState( [] )
       const [cartSubTotal, setCartSubTotal] = useState(0)
       const [cartTotal, setCartTotal] = useState(0)
-      const [cartTax, setCartTax] = useState(0)
+      const [ cartTax, setCartTax ] = useState( 0 )
+      const [count, setCount] = useState(0)
       // This is the useEffect hook that runs once when the component loads
-      useEffect( () => {
-            setProducts(StoreProduct)
-      },[])
+      // useEffect( () => {
+      //       setProducts(StoreProduct)
+      // },[])
 
       
       // This is a utility function that is used to find an item by it ID
@@ -46,6 +47,7 @@ export const MainProvider = ( { children } ) =>
 
             setProducts( tempProduct )
             setCart([...cart,product])
+            setCount(cart.length)
       }
 
 
@@ -102,15 +104,18 @@ export const MainProvider = ( { children } ) =>
       //This function clears all the Cart and reset everything to its original state
       const clearAll = () =>
       {
-            navigate( '../store' )
-            const tempProduct = products.forEach( item =>
+            
+            const tempProduct = products.map( item =>
             {
-                  item.inCart = false;
-                  item.count = 0;
-                  item.total = 0;
+                  const product = item
+                  product.inCart = false;
+                  product.total = 0;
+                  product.count = 0;
+                  return product
             } )
             setProducts(tempProduct)
-            setCart( [] )
+            setCart( [] );
+            navigate( '../store' );
       }
 
       //This useEffect runs the add total function when ever the add to cart button or function is runed and also when the cart component changes
@@ -128,10 +133,11 @@ export const MainProvider = ( { children } ) =>
                   setCartTotal(total)
             }
             addTotal()
+            setCount(cart.length)
       },[addToCart,cart])
       return (
             <MainContext.Provider value={ {
-                  products, addToCart, cart, cartSubTotal,cartTax,cartTotal,decrement,increment,deleteItem,clearAll
+                  products, addToCart, cart, cartSubTotal,cartTax,cartTotal,decrement,increment,deleteItem,clearAll, count
             } }>
                   {children}
             </MainContext.Provider>

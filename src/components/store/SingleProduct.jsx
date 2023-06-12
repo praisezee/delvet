@@ -13,7 +13,7 @@ const SingleProduct = ( {product,to} ) =>
       <Card className='card'>
         <Card.Body className='img-container'>
           <div
-            className='img-container p-3'
+            className='img-container m-1 rounded'
           >
             <Link to={to}>
               <img src={ product.src } alt='products' className='card-img-top rounded' />
@@ -28,8 +28,8 @@ const SingleProduct = ( {product,to} ) =>
                   (
                     <div className="d-flex justify-content-between">
                       <Button variant='success' onClick={()=>addToCart(product.id)}>Add to cart</Button>
-                      <Link to={to}>
-                        <BsInfoCircle className='my-auto fs-4' role='button'/>
+                      <Link to={to} className='my-auto'>
+                        <BsInfoCircle className='fs-5' role='button'/>
                       </Link>
                     </div>
                   ) : (
@@ -51,8 +51,8 @@ const SingleProduct = ( {product,to} ) =>
               <p className="h5 fw-bold">Contact Us</p>
               <div className="d-flex justify-content-between">
                 <Button variant='success'> Book now</Button>
-                <Link to={to}>
-                  <BsInfoCircle className='my-auto fs-4' role='button'/>
+                <Link to={to} className='my-auto'>
+                  <BsInfoCircle className='fs-5' role='button'/>
                 </Link>
               </div>
             </div>

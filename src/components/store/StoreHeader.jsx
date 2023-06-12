@@ -3,8 +3,10 @@ import { Container, FormControl, Nav, Navbar,NavLink,Offcanvas } from 'react-boo
 import { Link } from 'react-router-dom';
 import logo from '../../assets/logo.png'
 import { BsCart4 } from 'react-icons/bs';
+import useMainContext from '../../hooks/useMainContext';
 
 const StoreHeader = () => {
+  const {count} = useMainContext()
   return (
     <Navbar collapseOnSelect sticky='top'  bg="light" expand='none' className="bg-opacity-50">
       <Container>
@@ -13,8 +15,17 @@ const StoreHeader = () => {
             <img src={ logo } className='my-0' alt="" width={100}/>
           </Link>
         </Navbar.Brand>
-        <Link to='../cart' className=' ms-auto btn btn-outline-success me-4 p-2'>
-          <BsCart4 className='fs-4'/>
+        <Link to='../cart' className=' btn ms-auto position-relative btn-outline-success p-2 me-4'>
+            <BsCart4 className='fs-4' />
+          { count > 0 ? (
+            <span className='position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger'>
+            {count}
+          </span>
+          ) : (
+              <span className='position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger d-none'>
+            {count}
+          </span>
+            )}
         </Link>
         <Navbar.Toggle aria-controls='offcanvasNavbar-expand-lg'/>
         <Navbar.Offcanvas
