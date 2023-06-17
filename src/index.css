@@ -12,6 +12,10 @@ body {
   min-height: 100dvh;
 }
 
+.vh-75 {
+  height: 75dvh;
+}
+
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;

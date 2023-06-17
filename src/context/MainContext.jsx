@@ -3,146 +3,276 @@
 import { createContext, useState } from "react";
 import { StoreProduct } from "../db/product";
 import { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
+import axios from "../api/axios";
 
 const MainContext = createContext( {} );
 
 
 export const MainProvider = ( { children } ) =>
 {
-      const navigate = useNavigate()
-      const [ products, setProducts ] = useState( StoreProduct )
-      const [ cart, setCart ] = useState( [] )
-      const [cartSubTotal, setCartSubTotal] = useState(0)
-      const [cartTotal, setCartTotal] = useState(0)
-      const [ cartTax, setCartTax ] = useState( 0 )
-      const [count, setCount] = useState(0)
-      // This is the useEffect hook that runs once when the component loads
-      // useEffect( () => {
-      //       setProducts(StoreProduct)
-      // },[])
+      //These are the state for the products.
+      const navigate = useNavigate();
+      const location = useLocation()
+      const from = location.state?.from?.pathname || "store";
 
-      
-      // This is a utility function that is used to find an item by it ID
-      //This functon can be used anywhere to find a product with a particular id.
-      const getItem=( id ) =>
-      {
-            const product = products.find( item => item.id === id )
-            return product
-      }
+      const [ products, setProducts ] = useState([]);
+      const [ cart, setCart ] = useState( [] );
+      const [ cartSubTotal, setCartSubTotal ] = useState( 0 );
+      const [ cartTotal, setCartTotal ] = useState( 0 );
+      const [ cartTax, setCartTax ] = useState( 0 );
+      const [ count, setCount ] = useState( 0 );
 
-      //This is the function that runs when teh add to cart button is clicked for a product.
-      //initially the we destructure the products array and assign it to a variable called tempProduct.
-      //Then we locate the index of the item by calling the getItem utility function and passing the id of the item to it. the reason is because we will want all item to remaiin at their position when added to the cart. Tben we change the necesseary values ans set the product state to the new tempProduct array and also add the product to the cart array 
-      const addToCart = (id) =>
-      {
-            const tempProduct = [ ...products ];
-            const index = tempProduct.indexOf( getItem( id ) )
-            const product = tempProduct[ index ]
-
-            product.inCart = true;
-            product.count = 1;
-            const price = product.price
-            product.total = price;
-
-            setProducts( tempProduct )
-            setCart([...cart,product])
-            setCount(cart.length)
-      }
+      // These are the state for the user registration and loggin
+      const [ auth, setAuth ] = useState( {} );
+      const [ name, setName ] = useState( '' );
+      const [ email, setEmail ] = useState( '' );
+      const [ phoneNumber, setPhoneNumber ] = useState( '' );
+      const [ password, setPassword ] = useState( '' );
+      const [confirm, setConfirm] = useState('')
+      const [ success, setSuccess ] = useState( false );
+      const [ code, setCode ] = useState( '' );
+      const [ errMsg, setErrMsg ] = useState( '' );
+      const [isLoading, setIsLoading] = useState(false)
+      const [loading,setLoading] = useState(true)
 
 
-      // This is the function that runs whenever the increment button is clicked in the application.
-      //First we look in the cart and find the item we want to increase using it id. Then we increase the count and sum up the total 
-      const increment = ( id ) =>
-      {
-            let tempCart = cart
-            const selectedProduct = tempCart.find( item => item.id === id )
-            const index = tempCart.indexOf(selectedProduct) 
-            const product = tempCart[ index ]
-            product.count++
-            product.total = product.count * product.price
-            
-            setCart([...tempCart])
-      }
-
-      // This is the function that runs whenever the decrement button is clicked in the application.
-      //First we look in the cart and find the item we want to decrease using it id. Then we decrease the count and sum up the total 
-      const decrement = ( id ) =>
-      {
-            let tempCart = cart
-            const selectedProduct = tempCart.find( item => item.id === id )
-            const index = tempCart.indexOf(selectedProduct) 
-            const product = tempCart[ index ]
-            product.count--
-            if (product.count === 0) {
-                  deleteItem(id)
-            }else{
-                  product.total = product.count * product.price;
-                  setCart( [ ...tempCart ] )
-            }
-            
-      }
-
-      // This is the function that runs whenever the delete button is clicked in the application.
-      //First we look in the cart and find the item we want to delete using it id. Then we delete the count and sum up the total 
-      const deleteItem = ( id ) =>
-      {
-            let tempProduct = products
-            let tempCart = cart
-            tempCart = tempCart.filter( item => item.id !== id )
-            const index = tempProduct.indexOf( getItem( id ) )
-
-            const removedProduct = tempProduct[ index ]
-            removedProduct.inCart = false;
-            removedProduct.count = 0;
-            removedProduct.total = 0;
-
-            setProducts(tempProduct)
-            setCart([...tempCart])
-      }
-
-      //This function clears all the Cart and reset everything to its original state
-      const clearAll = () =>
-      {
-            
-            const tempProduct = products.map( item =>
-            {
-                  const product = item
-                  product.inCart = false;
-                  product.total = 0;
-                  product.count = 0;
-                  return product
-            } )
-            setProducts(tempProduct)
-            setCart( [] );
-            navigate( '../store' );
-      }
-
-      //This useEffect runs the add total function when ever the add to cart button or function is runed and also when the cart component changes
       useEffect( () =>
       {
-            const addTotal = () =>
+            const getProducts = async () =>
             {
-                  let subTotal = 0
-                  cart.map( item => subTotal += item.total )
-                  const tempTax = subTotal * 0.1
-                  const tax = parseFloat( tempTax.toFixed( 2 ) )
-                  const total = subTotal + tax
-                  setCartSubTotal(subTotal)
-                  setCartTax( tax )
-                  setCartTotal(total)
+                  try {
+                        const res = await axios.get( '/products', {
+                              headers: {'Content-Type': 'application/json'}
+                        } )
+                        const results = await res.data
+                        setProducts( results )
+                        setLoading(false)
+                  } catch (error) {
+                        console.error(error)
+                  }
             }
-            addTotal()
-            setCount(cart.length)
-      },[addToCart,cart])
-      return (
-            <MainContext.Provider value={ {
-                  products, addToCart, cart, cartSubTotal,cartTax,cartTotal,decrement,increment,deleteItem,clearAll, count
-            } }>
-                  {children}
-            </MainContext.Provider>
-      )
-}
+            getProducts()
+      },[])
+
+
+      //This is the function that handles the registration
+      const handleRegister = async () =>
+      {
+            setIsLoading(true)
+            try {
+                  await axios.post( '/auth/register', JSON.stringify( { name, email, phoneNumber, password } ), {
+                        headers: { 'Content-Type': 'application/json' },
+                        withCredentials: true
+                        } );
+                  await axios.post( '/verify/mail', JSON.stringify( { email } ),
+                        {
+                        headers: { 'Content-Type': 'application/json' },
+                        withCredentials: true
+                        }
+                  );
+
+                  setName( '' );
+                  setPhoneNumber( '' );
+                  setPassword( '' );
+                  setConfirm( '' );
+                  setIsLoading(false)
+                  setSuccess( true );
+
+            } catch ( err ) {
+                  if ( !err?.response ) {
+                        setErrMsg( 'No server response' );
+                  } else if ( err.response?.status === 409 ) {
+                        setErrMsg( 'Email already exist. Enter an new email' );
+                  } else {
+                        setErrMsg( 'Registration failed. pls try again or contact the admin support' );
+                  }
+                  setIsLoading(false)
+            }
+      }
+
+            // This is the function thet handles gmail verification
+            const verifyEmail = async () =>
+            {
+                  try {
+                        await axios.post( '/verify/code', JSON.stringify( { email, code } ), {
+                              headers: { 'Content-Type': 'application/json' },
+                              withCredentials: true
+                        } );
+                        navigate( '../login' );
+                        setCode( '' );
+                  } catch ( err ) {
+                        if ( !err?.res ) {
+                              console.log( 'no server response' );
+                        } else if ( err.response.status === 401 ) {
+                              console.log( 'invalid Verification code' );
+                              setErrMsg( 'Inavlid code. Enter verification code sent to you in your email' );
+                        } else {
+                              setErrMsg( 'Enter verification code sent to you in your email' );
+                        }
+                  }
+            };
+
+      //This is the login function
+      const handleLogin = async ( e ) =>
+      {
+            e.preventDefault()
+            setIsLoading(true)
+            try {
+                  const res = await axios.post( '/auth/login', JSON.stringify( { email, password } ),
+                        {
+                              headers: { 'Content-Type': 'application/json' },
+                              withCredentials: true
+                        } )
+                  const result = await res.data
+                  setAuth( result )
+                  setPassword( '' )
+                  navigate( from, { replace: true } )
+                  setIsLoading(false)
+            } catch (err) {
+                  if ( !err.response ) {
+                        setErrMsg( 'No server response' )
+                        setIsLoading(false)
+                  } else if ( err.response?.status === 400 ){
+                        setErrMsg( 'Missing Email or password' )
+                        setIsLoading(false)
+                  } else if (err.response?.status === 401){
+                        setErrMsg('Invalid Email or password')
+                        setIsLoading(false)
+                  }
+                  else {
+                  setErrMsg('Login Failed')
+                  setIsLoading(false)
+                  }
+            }
+      }
+
+            // This is the useEffect hook that runs once when the component loads
+            // useEffect( () => {
+            //       setProducts(StoreProduct)
+            // },[])
+
+      
+            // This is a utility function that is used to find an item by it ID
+            //This functon can be used anywhere to find a product with a particular id.
+            const getItem = ( id ) =>
+            {
+                  const product = products.find( item => item.id === id );
+                  return product;
+            };
+
+            //This is the function that runs when teh add to cart button is clicked for a product.
+            //initially the we destructure the products array and assign it to a variable called tempProduct.
+            //Then we locate the index of the item by calling the getItem utility function and passing the id of the item to it. the reason is because we will want all item to remaiin at their position when added to the cart. Tben we change the necesseary values ans set the product state to the new tempProduct array and also add the product to the cart array 
+            const addToCart = ( id ) =>
+            {
+                  const tempProduct = [ ...products ];
+                  const index = tempProduct.indexOf( getItem( id ) );
+                  const product = tempProduct[ index ];
+
+                  product.inCart = true;
+                  product.count = 1;
+                  const price = product.price;
+                  product.total = price;
+
+                  setProducts( tempProduct );
+                  setCart( [ ...cart, product ] );
+                  setCount( cart.length );
+            };
+
+
+            // This is the function that runs whenever the increment button is clicked in the application.
+            //First we look in the cart and find the item we want to increase using it id. Then we increase the count and sum up the total 
+            const increment = ( id ) =>
+            {
+                  let tempCart = cart;
+                  const selectedProduct = tempCart.find( item => item.id === id );
+                  const index = tempCart.indexOf( selectedProduct );
+                  const product = tempCart[ index ];
+                  product.count++;
+                  product.total = product.count * product.price;
+            
+                  setCart( [ ...tempCart ] );
+            };
+
+            // This is the function that runs whenever the decrement button is clicked in the application.
+            //First we look in the cart and find the item we want to decrease using it id. Then we decrease the count and sum up the total 
+            const decrement = ( id ) =>
+            {
+                  let tempCart = cart;
+                  const selectedProduct = tempCart.find( item => item.id === id );
+                  const index = tempCart.indexOf( selectedProduct );
+                  const product = tempCart[ index ];
+                  product.count--;
+                  if ( product.count === 0 ) {
+                        deleteItem( id );
+                  } else {
+                        product.total = product.count * product.price;
+                        setCart( [ ...tempCart ] );
+                  }
+            
+            };
+
+            // This is the function that runs whenever the delete button is clicked in the application.
+            //First we look in the cart and find the item we want to delete using it id. Then we delete the count and sum up the total 
+            const deleteItem = ( id ) =>
+            {
+                  let tempProduct = products;
+                  let tempCart = cart;
+                  tempCart = tempCart.filter( item => item.id !== id );
+                  const index = tempProduct.indexOf( getItem( id ) );
+
+                  const removedProduct = tempProduct[ index ];
+                  removedProduct.inCart = false;
+                  removedProduct.count = 0;
+                  removedProduct.total = 0;
+
+                  setProducts( tempProduct );
+                  setCart( [ ...tempCart ] );
+            };
+
+            //This function clears all the Cart and reset everything to its original state
+            const clearAll = () =>
+            {
+            
+                  const tempProduct = products.map( item =>
+                  {
+                        const product = item;
+                        product.inCart = false;
+                        product.total = 0;
+                        product.count = 0;
+                        return product;
+                  } );
+                  setProducts( tempProduct );
+                  setCart( [] );
+                  navigate( '../store' );
+            };
+
+            //This useEffect runs the add total function when ever the add to cart button or function is runed and also when the cart component changes
+            useEffect( () =>
+            {
+                  const addTotal = () =>
+                  {
+                        let subTotal = 0;
+                        cart.map( item => subTotal += item.total );
+                        const tempTax = subTotal * 0.1;
+                        const tax = parseFloat( tempTax.toFixed( 2 ) );
+                        const total = subTotal + tax;
+                        setCartSubTotal( subTotal );
+                        setCartTax( tax );
+                        setCartTotal( total );
+                  };
+                  addTotal();
+                  setCount( cart.length );
+            }, [ addToCart, cart ] );
+            return (
+                  <MainContext.Provider value={ {
+                        products, addToCart, cart, cartSubTotal, cartTax, cartTotal, decrement, increment, deleteItem, clearAll, count, auth, setAuth,name, setName,email, setEmail,phoneNumber, setPhoneNumber,password, setPassword,success,errMsg, setErrMsg,handleRegister,verifyEmail,isLoading,handleLogin, confirm, setConfirm, setCode, loading
+                  } }>
+                        { children }
+                  </MainContext.Provider>
+            );
+};
 
 
 export default MainContext;

@@ -12,6 +12,11 @@ import Missing from "./components/Missing";
 import Cart from "./components/store/Cart";
 import Api from "./components/store/Api";
 import Vacine from "./components/store/Vacine";
+import Admin from "./admin/Admin";
+import DashHome from "./admin/DashHome";
+import { ProductProvider } from "./context/ProductContext";
+import Orders from "./admin/Orders";
+import NewProduct from "./admin/NewProduct";
 
 function App() {
   return (
@@ -34,6 +39,15 @@ function App() {
           <Route path="api" element={<Api/>}/>     
           <Route path="vacines" element={<Vacine/>}/>   
         </Route>  
+      </Route>
+      <Route path="admin" element={
+        <ProductProvider>
+          <Admin />
+        </ProductProvider>
+      }>
+        <Route index element={<DashHome/>}/>
+        <Route path='orders' element={<Orders/>}/>
+        <Route path='new-product' element={<NewProduct/>}/>
       </Route>
     </Routes>
   )
