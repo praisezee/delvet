@@ -10,6 +10,7 @@ const Contact = () => {
             <p className="h2 w-75 mx-auto text-center text-uppercase">Contact Us</p>
             <hr className="w-25 mx-auto" />
           </div>
+              <p className="h6 text-center text-capitalize fw-bold my-4">For vetinary consultancy services or inquires, fill the form below</p>
           <Col xs={ 12 } md={ 7 }>
             <Form>
               <Row className='g-2'>

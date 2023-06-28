@@ -1,10 +1,9 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 //This it the context Api from react dom. This is where major states are managed and the logic behind some processes in the application.
-import { createContext, useState } from "react";
-import { StoreProduct } from "../db/product";
-import { useEffect } from "react";
+import { createContext, useState,useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import axios from "../api/axios";
+import { useFlutterwave, closePaymentModal } from "flutterwave-react-v3";
 
 const MainContext = createContext( {} );
 
@@ -35,15 +34,19 @@ export const MainProvider = ( { children } ) =>
       const [ errMsg, setErrMsg ] = useState( '' );
       const [isLoading, setIsLoading] = useState(false)
       const [loading,setLoading] = useState(true)
+      const [toast,  setToast] = useState(false)
+      const [text,  setText] = useState('')
+      const [variant,  setVariant] = useState('')
 
-
+      //This use effect runs once when the component mounts to get the products from the database
       useEffect( () =>
       {
             const getProducts = async () =>
             {
                   try {
                         const res = await axios.get( '/products', {
-                              headers: {'Content-Type': 'application/json'}
+                              headers: { 'Content-Type': 'application/json' },
+                              withCredentials:true
                         } )
                         const results = await res.data
                         setProducts( results )
@@ -54,6 +57,12 @@ export const MainProvider = ( { children } ) =>
             }
             getProducts()
       },[])
+
+      // This useEffect runs when the email and password state changes
+      useEffect( () =>
+      {
+            setErrMsg('')
+      },[email,password])
 
 
       //This is the function that handles the registration
@@ -146,11 +155,6 @@ export const MainProvider = ( { children } ) =>
                   }
             }
       }
-
-            // This is the useEffect hook that runs once when the component loads
-            // useEffect( () => {
-            //       setProducts(StoreProduct)
-            // },[])
 
       
             // This is a utility function that is used to find an item by it ID
@@ -247,6 +251,45 @@ export const MainProvider = ( { children } ) =>
                   setCart( [] );
                   navigate( '../store' );
             };
+      //Fluterwave implementation with the config for payment of goods.
+
+      const paymentConfig = {
+            public_key: 'FLWPUBK_TEST-53153e88384c416b228ffb431b095132-X',
+    tx_ref: Date.now(),
+    amount: cartTotal,
+    currency: 'NGN',
+    payment_options:"card,ussd",
+    customer: {
+      email: auth.email,
+      phone_number: auth.phoneNumber,
+      name: auth.name
+            },
+            customizations: {
+                  title: 'Purchase of goods',
+                  description: 'Payment for items in cart'
+    }
+      }
+      const payments = useFlutterwave(paymentConfig)
+      const checkout = async () =>
+      {
+            payments( {
+                  callback: ( res ) =>
+                  {
+                        console.log( res )
+                        setText('Item was successfully purchased')
+                        setToast( true )
+                        setVariant('success')
+                        setCart([])
+                        closePaymentModal()
+                  },
+                  onClose: () =>
+                  {
+                        setText('Your purchase was canceled')
+                        setToast( true )
+                        setVariant('danger')
+                  }
+            })
+      }
 
             //This useEffect runs the add total function when ever the add to cart button or function is runed and also when the cart component changes
             useEffect( () =>
@@ -267,7 +310,7 @@ export const MainProvider = ( { children } ) =>
             }, [ addToCart, cart ] );
             return (
                   <MainContext.Provider value={ {
-                        products, addToCart, cart, cartSubTotal, cartTax, cartTotal, decrement, increment, deleteItem, clearAll, count, auth, setAuth,name, setName,email, setEmail,phoneNumber, setPhoneNumber,password, setPassword,success,errMsg, setErrMsg,handleRegister,verifyEmail,isLoading,handleLogin, confirm, setConfirm, setCode, loading
+                        products, addToCart, cart, cartSubTotal, cartTax, cartTotal, decrement, increment, deleteItem, clearAll, count, auth, setAuth,name, setName,email, setEmail,phoneNumber, setPhoneNumber,password, setPassword,success,errMsg, setErrMsg,handleRegister,verifyEmail,isLoading,handleLogin, confirm, setConfirm, setCode, loading, checkout, toast, setToast, variant, text
                   } }>
                         { children }
                   </MainContext.Provider>

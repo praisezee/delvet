@@ -3,7 +3,7 @@ import { Card, Col, Container, Row } from 'react-bootstrap';
 
 const WhyUs = () => {
   return (
-    <div className="d-flex align-items-center">
+    <div className="d-flex align-items-center py-3">
       <Container>
         <Row>
           <div>

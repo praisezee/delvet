@@ -3,7 +3,9 @@ import StoreHeader from './store/StoreHeader';
 import { Outlet } from 'react-router-dom';
 import Footer from './Footer'
 
-const Store = () => {
+
+const Store = () =>
+{
   return (
     <>
       <StoreHeader />

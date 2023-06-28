@@ -34,7 +34,10 @@ export const ProductProvider = ( { children } ) =>
     {
       setLoading(true)
       try {
-        const res = await axios.get( '/products' )
+        const res = await axios.get( '/products', {
+          headers: { 'Content-Type': 'application/json' },
+          withCredentials:true
+    } )
         const result = await res.data
         setProducts( result )
         setLoading(false)

@@ -2,6 +2,9 @@
 
 This repository contains the source code for a veterinary ecommerce web application. The application allows users to browse and purchase veterinary products and services online. It provides a convenient platform for pet owners to access a wide range of products and services, making it easier to care for their pets.
 
+## Styles
+All css styles are desgned by the CSS libary Bootstrap version 5.3. React bootstrap libary was also used to add bootstap classes in form of components
+
 ## Features
 
 - User registration and authentication: Users can create an account and log in to the application.

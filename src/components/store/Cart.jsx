@@ -4,12 +4,14 @@ import useMainContext from '../../hooks/useMainContext'
 import EmptyCart from './cart/EmptyCart';
 import CartList from './cart/CartList';
 import CartTotal from './cart/CartTotal';
+import Toasts from '../Toast';
 
 const Cart = () =>
 {
-  const {cart} = useMainContext()
+  const {cart, variant, text} = useMainContext()
   return (
     <section>
+      <Toasts text={text} variant={variant} />
       { cart.length ?
         (
           <>

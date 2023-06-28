@@ -13,7 +13,7 @@ const Mission = () => {
             <hr className="w-25 mx-auto" />
           </div>
           <Col xs={ 10 } md={ 4 } className='my-auto mx-auto'>
-            <img src={ img1 } className='img-fluid rounded shadow-sm' alt="" />
+            <img src={ img2 } className='img-fluid rounded shadow-sm' alt="" />
           </Col>
           <Col className='my-auto mx-auto' xs={10} md={8}>
             <p className="h6 text-muted">Our vision to provide veterinary and management know- how for the poultry industry in Nigeria. Our target is to serve as a one-stop-source which provides the best solutions to poultry farmers in Nigeria. 
@@ -27,23 +27,23 @@ const Mission = () => {
             <hr className="w-25 mx-auto" />
           </div>
           <Col xs={ 10 } md={ 4 } className='my-auto mx-auto'>
-            <img src={ img2 } className='img-fluid rounded shadow-sm' alt="" />
+            <img src={ img1 } className='img-fluid rounded shadow-sm' alt="" />
           </Col>
           <Col className='my-auto mx-auto' xs={10} md={8}>
             <p className="h6 text-muted">
               To make veterinary pharmaceuticals and services accessible to all via internet.
             </p>
             <p>
-              To provide quality products and services
+              To provide quality products and services.
             </p>
             <p>
-              To render professional advice on poultry farming
+              To render professional advice on poultry farming.
             </p>
             <p>
-              To Render Veterinary consultations to poultry farmers
+              To Render Veterinary consultations to poultry farmers.
             </p>
             <p>
-              To make delivery of products (veterinary pharmaceuticals and poultry birds) throughout the country
+              To make delivery of products (veterinary pharmaceuticals and poultry birds) throughout the country.
             </p>
           </Col>
         </Row>

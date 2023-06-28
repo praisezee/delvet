@@ -14,6 +14,7 @@ import Api from "./components/store/Api";
 import Vacine from "./components/store/Vacine";
 import Admin from "./admin/Admin";
 import DashHome from "./admin/DashHome";
+import RequireAuth from './components/RequireAuth'
 import { ProductProvider } from "./context/ProductContext";
 import Orders from "./admin/Orders";
 import NewProduct from "./admin/NewProduct";
@@ -33,8 +34,12 @@ function App() {
         <Route path='store' >
           <Route index element={<StoreHome/>}/>
           <Route path=":id" element={ <Details /> } />
-        </Route>
-        <Route path="cart" element={<Cart/>}/>     
+        </Route>{/* 
+        <Route element={ <RequireAuth /> }> */}
+          <Route path="cart" element={
+            <Cart />
+          } />   {/*   
+        </Route> */}
         <Route path="category">
           <Route path="api" element={<Api/>}/>     
           <Route path="vacines" element={<Vacine/>}/>   

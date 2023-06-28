@@ -3,8 +3,8 @@ import { Link } from "react-router-dom";
 import {BsFacebook, BsGithub, BsGoogle, BsInstagram, BsLinkedin, BsTwitter} from 'react-icons/bs'
 import { Col, Container, Row } from "react-bootstrap";
 
-
 const Footer = () => {
+  const year = new Date().getFullYear()
   return (
     <div className="container my-5">
       <footer className="text-center " >
@@ -71,10 +71,8 @@ const Footer = () => {
             </Link>
           </section>
         </Container>
-        <div
-            className="text-center px-3"
-            >
-          © 2020 Copyright:
+        <div className="text-center px-3">
+          © {year} Copyright:
           <Link to='../' className='link-success'>Delvet.com</Link>
         </div>
       </footer>

@@ -4,7 +4,7 @@ import { Button, Col, Container, Row } from 'react-bootstrap';
 
 const CartTotal = () =>
 {
-  const {cartSubTotal,cartTax,cartTotal, clearAll} = useMainContext()
+  const {cartSubTotal,cartTax,cartTotal, clearAll, checkout} = useMainContext()
   return (
     <>
       <Container>
@@ -22,6 +22,9 @@ const CartTotal = () =>
             <h5 className='fw-bold'>
               total : &#8358;{cartTotal}
             </h5>
+            <Button variant='warning' className='mb-3 text-uppercase px-5' onClick={checkout}>
+              clear cart
+            </Button>
           </Col>
         </Row>
       </Container>
