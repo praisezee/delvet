@@ -85,8 +85,7 @@ export const MainProvider = ( { children } ) =>
                   setPhoneNumber( '' );
                   setPassword( '' );
                   setConfirm( '' );
-                  setIsLoading(false)
-                  setSuccess( true );
+                  navigate('../login')
 
             } catch ( err ) {
                   if ( !err?.response ) {
