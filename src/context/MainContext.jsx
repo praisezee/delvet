@@ -86,6 +86,7 @@ export const MainProvider = ( { children } ) =>
                   setPassword( '' );
                   setConfirm( '' );
                   navigate('../login')
+                  setErrMsg('')
 
             } catch ( err ) {
                   if ( !err?.response ) {
