@@ -5,16 +5,16 @@ import { useNavigate, useLocation } from "react-router-dom";
 import axios from "../api/axios";
 import { useFlutterwave, closePaymentModal } from "flutterwave-react-v3";
 
-const MainContext = createContext( {} );
+const MainContext = createContext( {} ); // create context object
 
 
 export const MainProvider = ( { children } ) =>
 {
-      //These are the state for the products.
+    
       const navigate = useNavigate();
       const location = useLocation()
       const from = location.state?.from?.pathname || "store";
-
+      //These are the state for the products.
       const [ products, setProducts ] = useState([]);
       const [ cart, setCart ] = useState( [] );
       const [ cartSubTotal, setCartSubTotal ] = useState( 0 );
@@ -22,7 +22,7 @@ export const MainProvider = ( { children } ) =>
       const [ cartTax, setCartTax ] = useState( 0 );
       const [ count, setCount ] = useState( 0 );
 
-      // These are the state for the user registration and loggin
+      // These are the state for the user registration and login
       const [ auth, setAuth ] = useState( {} );
       const [ name, setName ] = useState( '' );
       const [ email, setEmail ] = useState( '' );
@@ -51,7 +51,7 @@ export const MainProvider = ( { children } ) =>
                         const results = await res.data
                         setProducts( results )
                         setLoading(false)
-                  } catch (error) {
+                  } catch (error) {   //throw or show error in the console
                         console.error(error)
                   }
             }
@@ -65,7 +65,7 @@ export const MainProvider = ( { children } ) =>
       },[email,password])
 
 
-      //This is the function that handles the registration
+      //This is the function that handles the registration of a user
       const handleRegister = async () =>
       {
             setIsLoading(true)

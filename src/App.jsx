@@ -34,12 +34,12 @@ function App() {
         <Route path='store' >
           <Route index element={<StoreHome/>}/>
           <Route path=":id" element={ <Details /> } />
-        </Route>{/* 
-        <Route element={ <RequireAuth /> }> */}
+        </Route>
+        <Route element={ <RequireAuth /> }> 
           <Route path="cart" element={
             <Cart />
-          } />   {/*   
-        </Route> */}
+          } />   
+        </Route> 
         <Route path="category">
           <Route path="api" element={<Api/>}/>     
           <Route path="vacines" element={<Vacine/>}/>   

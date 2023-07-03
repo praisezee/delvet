@@ -23,7 +23,7 @@ const CartTotal = () =>
               total : &#8358;{cartTotal}
             </h5>
             <Button variant='warning' className='mb-3 text-uppercase px-5' onClick={checkout}>
-              clear cart
+              Checkout
             </Button>
           </Col>
         </Row>
