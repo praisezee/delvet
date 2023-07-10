@@ -13,7 +13,7 @@ const DeleteModal = () =>
       </ModalHeader>
       <ModalBody>
         <Row>
-          <p>Are you sure you want to delete { name } item? If yes enter the text <span>drop the product { name }</span> </p>
+          <p>Are you sure you want to delete { name } item? If yes enter the text <span className='text-danger'>drop the product { name }</span> </p>
           <FormControl value={deleteText} onChange={(e)=>setDeleteText(e.target.value)} />
         </Row>
       </ModalBody>

@@ -39,6 +39,7 @@ export const MainProvider = ( { children } ) =>
       const [variant,  setVariant] = useState('')
       const [address,setAddress] =useState('')
       const [active, setActive] = useState(false)
+      const [addressModal, setAddressModal] = useState(false)
 
       //This use effect runs once when the component mounts to get the products from the database
       useEffect( () =>
@@ -284,7 +285,7 @@ export const MainProvider = ( { children } ) =>
             };
       //Fluterwave implementation with the config for payment of goods.
 
-      /* const paymentConfig = {
+      const paymentConfig = {
             public_key: 'FLWPUBK_TEST-53153e88384c416b228ffb431b095132-X',
     tx_ref: Date.now(),
     amount: cartTotal,
@@ -300,8 +301,26 @@ export const MainProvider = ( { children } ) =>
                   description: 'Payment for items in cart'
     }
       }
-      const payments = useFlutterwave(paymentConfig) */
-      const sucessCheckout = async () =>
+      const payments = useFlutterwave(paymentConfig)
+      const pendingCheckout = async () =>
+      {
+            const orderItem = cart.map( item =>
+            {
+                  const order = { product_id: item.product_id, quantity: item.count }
+                  return order;
+
+            } )
+            console.log( orderItem )
+            try {
+                  const res = await axios.post( '/order',  { user_id: auth.id, address, products: orderItem,status:'pending' } )
+                  const result = res.data
+                  console.log(result)
+
+            } catch (error) {
+                  console.error(error)
+            }
+      }
+      const successCheckout = async () =>
       {
             const orderItem = cart.map( item =>
             {
@@ -321,8 +340,7 @@ export const MainProvider = ( { children } ) =>
       }
       const checkout = async () =>
       {
-            sucessCheckout()
-            /* payments( {
+            payments( {
                   callback: ( res ) =>
                   {
                         console.log( res )
@@ -337,10 +355,23 @@ export const MainProvider = ( { children } ) =>
                   {
                         setText('Your purchase was canceled')
                         setToast( true )
+                        pendingCheckout()
                         setVariant('danger')
                   }
-            }) */
+            })
       }
+
+      const toggleAddressModal = () =>
+      {
+            setAddressModal(true)
+      }
+
+      const toggleAddressModalClose = () =>
+      {
+            setAddressModal( false )
+            pendingCheckout()
+      }
+
 
             //This useEffect runs the add total function when ever the add to cart button or function is runed and also when the cart component changes
             useEffect( () =>
@@ -361,7 +392,7 @@ export const MainProvider = ( { children } ) =>
             }, [ addToCart, cart ] );
             return (
                   <MainContext.Provider value={ {
-                        products, addToCart, cart, cartSubTotal, cartTax, cartTotal, decrement, increment, deleteItem, clearAll, count, auth, setAuth,name, setName,email, setEmail,phoneNumber, setPhoneNumber,password, setPassword,success,errMsg, setErrMsg,handleRegister,verifyEmail,isLoading,handleLogin, confirm, setConfirm, setCode, loading, checkout, toast, setToast, variant, text, handleAdminActive,handleLoginActive, active,handleAdminLogin
+                        products, addToCart, cart, cartSubTotal, cartTax, cartTotal, decrement, increment, deleteItem, clearAll, count, auth, setAuth,name, setName,email, setEmail,phoneNumber, setPhoneNumber,password, setPassword,success,errMsg, setErrMsg,handleRegister,verifyEmail,isLoading,handleLogin, confirm, setConfirm, setCode, loading, checkout, toast, setToast, variant, text, handleAdminActive,handleLoginActive, active,handleAdminLogin, address, addressModal, setAddress
                   } }>
                         { children }
                   </MainContext.Provider>

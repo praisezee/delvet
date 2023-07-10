@@ -22,13 +22,19 @@ export const ProductProvider = ( { children } ) =>
   const [editModal, setEditModal] = useState(false)
   const [deleteModal, setDeleteModal] = useState(false)
   const [ id, setId ] = useState( '' )
-  const [deleteText,setDeleteText] = useState('')
+  const [ deleteText, setDeleteText ] = useState( '' )
+  const [order, setOrder] = useState([])
 
   
   useEffect( () =>
   {
     getProduct()
   }, [] )
+
+  const getOrder = async () =>
+  {
+    
+  }
 
   const getProduct = async () =>
     {
@@ -74,7 +80,7 @@ export const ProductProvider = ( { children } ) =>
       setQuantity(result.quantity)
       setDescription(result.description)
       setPrice( result.price )
-      setId( result.id )
+      setId( result.product_id )
       setEditModal(true)
     } catch (err) {
       console.error(err)

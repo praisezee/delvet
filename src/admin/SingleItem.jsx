@@ -18,10 +18,10 @@ const SingleItem = ({product, products, handleEditModal,handleDeleteModal}) => {
         <p className="h6">{product.price}</p>
       </Col>
       <Col xs={ 2 } className='my-auto text-center'>
-        <Button variant='outline-info' onClick={()=>handleEditModal(product.id)} ><BsPencil/></Button>
+        <Button variant='outline-info' onClick={()=>handleEditModal(product.product_id)} ><BsPencil/></Button>
       </Col>
       <Col xs={ 2 } className='my-auto text-center'>
-        <Button variant='outline-danger' onClick={()=>handleDeleteModal(product.id)} ><BsTrash/></Button>
+        <Button variant='outline-danger' onClick={()=>handleDeleteModal(product.product_id)} ><BsTrash/></Button>
       </Col>
     </Row>
   )
