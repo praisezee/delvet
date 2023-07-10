@@ -37,14 +37,14 @@ const Details = () =>
                   <p className='h4'>{ product?.price }</p>
                   { !product?.inCart ? 
                     (
-                      <Button variant='outline-success' onClick={()=>addToCart(product?.id)}>Add to cart</Button>
+                      <Button variant='outline-success' onClick={()=>addToCart(product?.product_id)}>Add to cart</Button>
                     ) : (
                       <div className='d-flex justify-content-evenly'>
-                        <Button variant='outline-danger' onClick={()=>decrement(product.id)}>
+                        <Button variant='outline-danger' onClick={()=>decrement(product.product_id)}>
                           <BsDash className=' fs-1'/>
                         </Button>
                         <span className='h4 my-auto'>{ product?.count }</span>
-                        <Button variant='outline-success' onClick={()=>increment(product.id)}>
+                        <Button variant='outline-success' onClick={()=>increment(product.product_id)}>
                           <BsPlus  className=' fs-1'/>
                         </Button>
                       </div>

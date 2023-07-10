@@ -31,13 +31,6 @@ const Footer = () => {
                   <Link to='../contact' className='link-success'>Contact</Link>
                 </h6>
               </Col>
-              <Col xs={ 12 } className="mt-3 mb-0">
-                {/* The logi behind a user logged in or not */}
-                <h6 className="text-uppercase font-weight-bold">
-                  <Link to='../login' className='btn btn-outline-success'>Login</Link>
-                </h6>
-              </Col>
-
             </Row>
           </section>
           <hr className="my-5" />

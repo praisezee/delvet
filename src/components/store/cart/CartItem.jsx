@@ -19,17 +19,17 @@ const CartItem = ( { item } ) =>
       </Col>
       <Col xs={ 10 } lg={ 2 } className='mx-auto fw-bold text-capitalize my-auto'>
         <div className="d-flex justify-content-center">
-          <Button variant='outline-danger' onClick={()=> decrement(item.id)}>
+          <Button variant='outline-danger' onClick={()=> decrement(item.product_id)}>
             <BsDash/>
           </Button>
           <span className='h4 my-auto mx-3'>{ item.count }</span>
-          <Button variant='outline-success' onClick={()=> increment(item.id)}>
+          <Button variant='outline-success' onClick={()=> increment(item.product_id)}>
             <BsPlus />
           </Button>
         </div>
       </Col>
       <Col xs={ 10 } lg={ 2 } className='mx-auto fw-bold text-capitalize my-auto'>
-        <Button variant='outline-warning' onClick={()=> deleteItem(item.id)}>
+        <Button variant='outline-warning' onClick={()=> deleteItem(item.product_id)}>
           <BsTrash className='fs-5'/>
         </Button>
       </Col>

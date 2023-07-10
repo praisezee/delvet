@@ -18,6 +18,9 @@ import RequireAuth from './components/RequireAuth'
 import { ProductProvider } from "./context/ProductContext";
 import Orders from "./admin/Orders";
 import NewProduct from "./admin/NewProduct";
+import Antibiotics from "./components/store/Antibiotics";
+import FeedAdditives from "./components/store/FeedAdditives";
+import Poultry from "./components/store/Poultry";
 
 function App() {
   return (
@@ -42,7 +45,10 @@ function App() {
         </Route> 
         <Route path="category">
           <Route path="api" element={<Api/>}/>     
-          <Route path="vacines" element={<Vacine/>}/>   
+          <Route path="vaccines" element={<Vacine/>}/>   
+          <Route path="antibiotics" element={<Antibiotics/>}/>   
+          <Route path="feeds" element={<FeedAdditives/>}/>   
+          <Route path="poultry" element={<Poultry/>}/>   
         </Route>  
       </Route>
       <Route path="admin" element={

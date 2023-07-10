@@ -5,7 +5,7 @@ import Products from './Products';
 const Api = () =>
 {
   const { products } = useMainContext()
-  const apiProducts = products.filter(p => p.category === 'api')
+  const apiProducts = products.filter(p => p.category.toLowerCase() === 'api')
   return (
     <main className='h-screen'>
       { apiProducts?.length ? (

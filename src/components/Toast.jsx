@@ -8,7 +8,7 @@ const Toasts = ({text,variant}) =>
   
     <Toast bg={variant} show={toast} delay={5000} autohide onClose={()=>setToast(false)}>
       <ToastHeader closeButton>
-          <strong className='me-auto'>{ text }</strong>
+        <strong className='me-auto'>{ text }</strong>
       </ToastHeader>
     </Toast>
   )

@@ -1,15 +1,13 @@
-import React from 'react'
 import useMainContext from '../../hooks/useMainContext';
 import Products from './Products';
 
-const Vacine = () =>
-{
+const Antibiotics = () => {
   const { products } = useMainContext()
-  const vacineProducts = products.filter(p => p.category.toLowerCase() === 'vacines')
+  const antibioticsProduct = products.filter(p => p.category.toLowerCase() === 'antibiotics')
   return (
     <main className='h-screen'>
-      { vacineProducts?.length ? (
-        <Products products={vacineProducts} text='Vacines'/>
+      { antibioticsProduct?.length ? (
+        <Products products={antibioticsProduct} text='Antibiotics'/>
       ): (
         <div className="h-screen d-flex align-items-center justify-content-center">
           <p className="p-5 shadow-sm border border-success h4 fw-bold text-uppercase rounded w-75 mx-auto text-center">Ops! there is no product to display at the moment</p>
@@ -19,4 +17,4 @@ const Vacine = () =>
   )
 }
 
-export default Vacine
+export default Antibiotics

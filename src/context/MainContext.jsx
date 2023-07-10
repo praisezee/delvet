@@ -37,6 +37,8 @@ export const MainProvider = ( { children } ) =>
       const [toast,  setToast] = useState(false)
       const [text,  setText] = useState('')
       const [variant,  setVariant] = useState('')
+      const [address,setAddress] =useState('')
+      const [active, setActive] = useState(false)
 
       //This use effect runs once when the component mounts to get the products from the database
       useEffect( () =>
@@ -120,8 +122,27 @@ export const MainProvider = ( { children } ) =>
                               setErrMsg( 'Enter verification code sent to you in your email' );
                         }
                   }
-            };
-
+      };
+      
+      const handleAdminActive = () =>
+      {
+            setActive(true)
+      }
+      const handleLoginActive = () =>
+      {
+            setActive(false)
+      }
+      const handleAdminLogin = () =>
+      {
+            setIsLoading(true)
+            if ( email !== 'delvet.com.ng' && password !== 'delvet123' ) {
+                  setErrMsg( 'Invalid Logins' )
+                  setIsLoading(false)
+            } else {
+                  navigate( '../admin' )
+                  setIsLoading(false)
+            }
+      }
       //This is the login function
       const handleLogin = async ( e ) =>
       {
@@ -161,7 +182,7 @@ export const MainProvider = ( { children } ) =>
             //This functon can be used anywhere to find a product with a particular id.
             const getItem = ( id ) =>
             {
-                  const product = products.find( item => item.id === id );
+                  const product = products.find( item => item.product_id === id );
                   return product;
             };
 
@@ -179,6 +200,10 @@ export const MainProvider = ( { children } ) =>
                   const price = product.price;
                   product.total = price;
 
+                  setText('Item was added to the cart successfully')
+                  setToast( true )
+                  setVariant('success')
+
                   setProducts( tempProduct );
                   setCart( [ ...cart, product ] );
                   setCount( cart.length );
@@ -190,7 +215,7 @@ export const MainProvider = ( { children } ) =>
             const increment = ( id ) =>
             {
                   let tempCart = cart;
-                  const selectedProduct = tempCart.find( item => item.id === id );
+                  const selectedProduct = tempCart.find( item => item.product_id === id );
                   const index = tempCart.indexOf( selectedProduct );
                   const product = tempCart[ index ];
                   product.count++;
@@ -204,7 +229,7 @@ export const MainProvider = ( { children } ) =>
             const decrement = ( id ) =>
             {
                   let tempCart = cart;
-                  const selectedProduct = tempCart.find( item => item.id === id );
+                  const selectedProduct = tempCart.find( item => item.product_id === id );
                   const index = tempCart.indexOf( selectedProduct );
                   const product = tempCart[ index ];
                   product.count--;
@@ -223,13 +248,16 @@ export const MainProvider = ( { children } ) =>
             {
                   let tempProduct = products;
                   let tempCart = cart;
-                  tempCart = tempCart.filter( item => item.id !== id );
+                  tempCart = tempCart.filter( item => item.product_id !== id );
                   const index = tempProduct.indexOf( getItem( id ) );
 
                   const removedProduct = tempProduct[ index ];
                   removedProduct.inCart = false;
                   removedProduct.count = 0;
                   removedProduct.total = 0;
+                  setText('Item was deleted successfully')
+                  setToast( true )
+                  setVariant('danger')
 
                   setProducts( tempProduct );
                   setCart( [ ...tempCart ] );
@@ -250,10 +278,13 @@ export const MainProvider = ( { children } ) =>
                   setProducts( tempProduct );
                   setCart( [] );
                   navigate( '../store' );
+                  setText('Cart item was successfully deleted')
+                  setToast( true )
+                  setVariant('danger')
             };
       //Fluterwave implementation with the config for payment of goods.
 
-      const paymentConfig = {
+      /* const paymentConfig = {
             public_key: 'FLWPUBK_TEST-53153e88384c416b228ffb431b095132-X',
     tx_ref: Date.now(),
     amount: cartTotal,
@@ -269,10 +300,29 @@ export const MainProvider = ( { children } ) =>
                   description: 'Payment for items in cart'
     }
       }
-      const payments = useFlutterwave(paymentConfig)
+      const payments = useFlutterwave(paymentConfig) */
+      const sucessCheckout = async () =>
+      {
+            const orderItem = cart.map( item =>
+            {
+                  const order = { product_id: item.product_id, quantity: item.count }
+                  return order;
+
+            } )
+            console.log( orderItem )
+            try {
+                  const res = await axios.post( '/order',  { user_id: auth.id, address, products: orderItem,status:'success' } )
+                  const result = res.data
+                  console.log(result)
+
+            } catch (error) {
+                  console.error(error)
+            }
+      }
       const checkout = async () =>
       {
-            payments( {
+            sucessCheckout()
+            /* payments( {
                   callback: ( res ) =>
                   {
                         console.log( res )
@@ -280,6 +330,7 @@ export const MainProvider = ( { children } ) =>
                         setToast( true )
                         setVariant('success')
                         setCart([])
+                        successCheckout()
                         closePaymentModal()
                   },
                   onClose: () =>
@@ -288,7 +339,7 @@ export const MainProvider = ( { children } ) =>
                         setToast( true )
                         setVariant('danger')
                   }
-            })
+            }) */
       }
 
             //This useEffect runs the add total function when ever the add to cart button or function is runed and also when the cart component changes
@@ -310,7 +361,7 @@ export const MainProvider = ( { children } ) =>
             }, [ addToCart, cart ] );
             return (
                   <MainContext.Provider value={ {
-                        products, addToCart, cart, cartSubTotal, cartTax, cartTotal, decrement, increment, deleteItem, clearAll, count, auth, setAuth,name, setName,email, setEmail,phoneNumber, setPhoneNumber,password, setPassword,success,errMsg, setErrMsg,handleRegister,verifyEmail,isLoading,handleLogin, confirm, setConfirm, setCode, loading, checkout, toast, setToast, variant, text
+                        products, addToCart, cart, cartSubTotal, cartTax, cartTotal, decrement, increment, deleteItem, clearAll, count, auth, setAuth,name, setName,email, setEmail,phoneNumber, setPhoneNumber,password, setPassword,success,errMsg, setErrMsg,handleRegister,verifyEmail,isLoading,handleLogin, confirm, setConfirm, setCode, loading, checkout, toast, setToast, variant, text, handleAdminActive,handleLoginActive, active,handleAdminLogin
                   } }>
                         { children }
                   </MainContext.Provider>

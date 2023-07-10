@@ -13,7 +13,7 @@ const Header = () => {
           </Link>
         </Navbar.Brand>
         <Navbar.Toggle aria-controls='offcanvasNavbar-expand-lg'/>
-        <Navbar.Offcanvas id={`offcanvasNavbar-expand-$'lg'`} aria-labelledby={`offcanvasNavbarLabel-expand-$'lg'`} placement="end" className='bg-dark-subtle'
+        <Navbar.Offcanvas id={`offcanvasNavbar-expand-lg`} aria-labelledby={`offcanvasNavbarLabel-expand-lg`} placement="end" className='bg-dark-subtle'
         >
           <Offcanvas.Body>
             <Nav className="justify-content-end flex-grow-1 pe-3">
@@ -28,9 +28,6 @@ const Header = () => {
               </NavLink>
               <NavLink eventKey={ 1 }>
                 <Link to='../store' className=' nav-link text-light-emphasis'>Product</Link>
-              </NavLink>
-              <NavLink eventKey={1}>
-                <Link to='../login' className=' nav-link text-light-emphasis'>Login</Link>
               </NavLink>
             </Nav>
           </Offcanvas.Body>

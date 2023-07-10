@@ -2,20 +2,26 @@ import React from 'react'
 import { Container, FormControl, Nav, Navbar,NavLink,Offcanvas } from 'react-bootstrap'
 import { Link } from 'react-router-dom';
 import logo from '../../assets/logo.png'
-import { BsCart4 } from 'react-icons/bs';
+import { BsCart4, BsPerson } from 'react-icons/bs';
 import useMainContext from '../../hooks/useMainContext';
 
 const StoreHeader = () => {
-  const {count} = useMainContext()
+  const {count, auth} = useMainContext()
   return (
     <Navbar collapseOnSelect sticky='top'  bg="light" expand='none' className="bg-opacity-50">
-      <Container>
+      <Container fluid className='px-4'>
         <Navbar.Brand >
           <Link to='../store' className=' my-0'>
             <img src={ logo } className='my-0' alt="" width={100}/>
           </Link>
         </Navbar.Brand>
-        <Link to='../cart' className=' btn ms-auto position-relative btn-outline-success p-2 me-4'>
+        { !auth.id ?
+          <Link to='../login' className=' ms-auto btn btn-success rounded-circle me-3'>
+            <BsPerson className='fs-4'/>
+          </Link> :
+          <p className='ms-auto'>{ auth.name }</p>
+        }
+        <Link to='../cart' className=' btn position-relative btn-outline-success p-2 me-4'>
             <BsCart4 className='fs-4' />
           { count > 0 ? (
             <span className='position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger'>
@@ -51,10 +57,16 @@ const StoreHeader = () => {
                 <Link to='../category/api' className=' nav-link text-light-emphasis'>API Drugs</Link>
               </NavLink>
               <NavLink eventKey={1}>
-                <Link to='../category/vacines' className=' nav-link text-light-emphasis'>Vacines</Link>
+                <Link to='../category/vaccines' className=' nav-link text-light-emphasis'>Vaccines</Link>
               </NavLink>
               <NavLink eventKey={1}>
-                <Link to='../login' className=' nav-link text-light-emphasis'>Login</Link>
+                <Link to='../category/antibiotics' className=' nav-link text-light-emphasis'>Antibiotics</Link>
+              </NavLink>
+              <NavLink eventKey={1}>
+                <Link to='../category/feeds' className=' nav-link text-light-emphasis'>Feed Additives</Link>
+              </NavLink>
+              <NavLink eventKey={1}>
+                <Link to='../category/poultry' className=' nav-link text-light-emphasis'>Poultry</Link>
               </NavLink>
             </Nav>
             

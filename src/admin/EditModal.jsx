@@ -45,7 +45,7 @@ const EditModal = () =>
             <FormSelect value={category} onChange={(e)=>setCategory(e.target.value)} className='border border-success'>
               <option value="Select an option">Select an option</option>
               <option value="api">API</option>
-              <option value="vacines">Vacines</option>
+              <option value="vaccines">Vacines</option>
               <option value="antibiotics">Antibiotics</option>
               <option value="feeds">Feed additives</option>
               <option value="poultry">Poultry bird</option>
