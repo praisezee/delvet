@@ -29,11 +29,18 @@ export const ProductProvider = ( { children } ) =>
   useEffect( () =>
   {
     getProduct()
+    getOrder()
   }, [] )
 
   const getOrder = async () =>
   {
-    
+    try {
+      const res = await axios.get( '/order' )
+      const result = await res.data
+      setOrder(result)
+    } catch (err) {
+      console.error(err)
+    }
   }
 
   const getProduct = async () =>
@@ -161,7 +168,7 @@ export const ProductProvider = ( { children } ) =>
   
   return (
     <ProductContext.Provider value={ {
-      products,loading,description,setDescription,src,setSrc,price,setPrice,category,setCategory,quantity,setQuantity,name,setName,handleNewProduct, editModal,handleEditModal,handleEdit,setEditModal, id, handleDelete,deleteModal,setDeleteModal,deleteText,setDeleteText,handleDeleteModal,handleEditClose,handleDeleteClose
+      products,loading,description,setDescription,src,setSrc,price,setPrice,category,setCategory,quantity,setQuantity,name,setName,handleNewProduct, editModal,handleEditModal,handleEdit,setEditModal, id, handleDelete,deleteModal,setDeleteModal,deleteText,setDeleteText,handleDeleteModal,handleEditClose,handleDeleteClose,order
     }}>
       {children}
     </ProductContext.Provider>

@@ -50,7 +50,7 @@ const SingleProduct = ( {product,to} ) =>
             <div>
               <p className="h5 fw-bold">Contact Us</p>
               <div className="d-flex justify-content-between">
-                <Button variant='success'> Book now</Button>
+                <Link to='../contact'> Book now</Link>
                 <Link to={to} className='my-auto'>
                   <BsInfoCircle className='fs-5' role='button'/>
                 </Link>

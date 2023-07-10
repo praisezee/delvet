@@ -392,7 +392,7 @@ export const MainProvider = ( { children } ) =>
             }, [ addToCart, cart ] );
             return (
                   <MainContext.Provider value={ {
-                        products, addToCart, cart, cartSubTotal, cartTax, cartTotal, decrement, increment, deleteItem, clearAll, count, auth, setAuth,name, setName,email, setEmail,phoneNumber, setPhoneNumber,password, setPassword,success,errMsg, setErrMsg,handleRegister,verifyEmail,isLoading,handleLogin, confirm, setConfirm, setCode, loading, checkout, toast, setToast, variant, text, handleAdminActive,handleLoginActive, active,handleAdminLogin, address, addressModal, setAddress
+                        products, addToCart, cart, cartSubTotal, cartTax, cartTotal, decrement, increment, deleteItem, clearAll, count, auth, setAuth,name, setName,email, setEmail,phoneNumber, setPhoneNumber,password, setPassword,success,errMsg, setErrMsg,handleRegister,verifyEmail,isLoading,handleLogin, confirm, setConfirm, setCode, loading, checkout, toast, setToast, variant, text, handleAdminActive,handleLoginActive, active,handleAdminLogin, address, addressModal, setAddress,toggleAddressModal,toggleAddressModalClose
                   } }>
                         { children }
                   </MainContext.Provider>
