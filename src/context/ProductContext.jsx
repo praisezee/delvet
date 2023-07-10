@@ -137,7 +137,7 @@ export const ProductProvider = ( { children } ) =>
       const result = await res.data
       
       setName(result.name)
-      setId(result.id)
+      setId(result.product_id)
       setDeleteModal(true)
     } catch (err) {
       console.error(err)
