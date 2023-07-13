@@ -10,7 +10,7 @@ const Details = () =>
 {
   const { id } = useParams()
   const { products, addToCart, increment, decrement } = useMainContext();
-  const product = products.find( p => p.id.toString() === id )
+  const product = products.find( p => p.product_id.toString() === id )
   return (
     <Container fluid>
       { product ? (
