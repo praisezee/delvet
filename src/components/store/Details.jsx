@@ -63,7 +63,7 @@ const Details = () =>
           </p>
           <hr className="w-25 mx-auto" />
         </div>
-            <Category category={ products.filter( p => p.id.toString() !== id && p.category === product.category )}/> 
+            <Category category={ products.filter( p => p.product_id.toString() !== id && p.category === product.category )}/> 
           </Row>
         </>
       ) : (

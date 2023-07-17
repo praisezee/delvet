@@ -285,23 +285,23 @@ export const MainProvider = ( { children } ) =>
             };
       //Fluterwave implementation with the config for payment of goods.
 
-      const paymentConfig = {
-            public_key: 'FLWPUBK_TEST-53153e88384c416b228ffb431b095132-X',
-    tx_ref: Date.now(),
-    amount: cartTotal,
-    currency: 'NGN',
-    payment_options:"card,ussd",
-    customer: {
-      email: auth.email,
-      phone_number: auth.phoneNumber,
-      name: auth.name
-            },
-            customizations: {
-                  title: 'Purchase of goods',
-                  description: 'Payment for items in cart'
-    }
-      }
-      const payments = useFlutterwave(paymentConfig)
+//       const paymentConfig = {
+//             public_key: 'FLWPUBK_TEST-53153e88384c416b228ffb431b095132-X',
+//     tx_ref: Date.now(),
+//     amount: cartTotal,
+//     currency: 'NGN',
+//     payment_options:"card,ussd",
+//     customer: {
+//       email: auth.email,
+//       phone_number: auth.phoneNumber,
+//       name: auth.name
+//             },
+//             customizations: {
+//                   title: 'Purchase of goods',
+//                   description: 'Payment for items in cart'
+//     }
+//       }
+//       const payments = useFlutterwave(paymentConfig)
       const pendingCheckout = async () =>
       {
             const orderItem = cart.map( item =>
@@ -340,25 +340,25 @@ export const MainProvider = ( { children } ) =>
       }
       const checkout = async () =>
       {
-            payments( {
-                  callback: ( res ) =>
-                  {
-                        console.log( res )
-                        setText('Item was successfully purchased')
-                        setToast( true )
-                        setVariant('success')
-                        setCart([])
-                        successCheckout()
-                        closePaymentModal()
-                  },
-                  onClose: () =>
-                  {
-                        setText('Your purchase was canceled')
-                        setToast( true )
-                        pendingCheckout()
-                        setVariant('danger')
-                  }
-            })
+            // payments( {
+            //       callback: ( res ) =>
+            //       {
+            //             console.log( res )
+            //             setText('Item was successfully purchased')
+            //             setToast( true )
+            //             setVariant('success')
+            //             setCart([])
+            //             successCheckout()
+            //             closePaymentModal()
+            //       },
+            //       onClose: () =>
+            //       {
+            //             setText('Your purchase was canceled')
+            //             setToast( true )
+            //             pendingCheckout()
+            //             setVariant('danger')
+            //       }
+            // })
       }
 
       const toggleAddressModal = () =>
