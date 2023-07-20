@@ -7,7 +7,7 @@ import useMainContext from '../../hooks/useMainContext';
 
 const SingleProduct = ( {product,to} ) =>
 {
-  const {addToCart, increment, decrement} = useMainContext()
+  const {addToCart, increment, decrement,bookNow} = useMainContext()
   return (
     <Col xs={ 8 } md={ 4 } lg={ 2 } className='mx-auto my-3'>
       <Card className='card'>
@@ -50,7 +50,7 @@ const SingleProduct = ( {product,to} ) =>
             <div>
               <p className="h5 fw-bold">Contact Us</p>
               <div className="d-flex justify-content-between">
-                <Link to='../contact'> Book now</Link>
+                <Button variant='success' onClick={bookNow}> Book now</Button>
                 <Link to={to} className='my-auto'>
                   <BsInfoCircle className='fs-5' role='button'/>
                 </Link>

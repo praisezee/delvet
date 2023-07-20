@@ -6,7 +6,7 @@ import { BsCart4, BsPerson } from 'react-icons/bs';
 import useMainContext from '../../hooks/useMainContext';
 
 const StoreHeader = () => {
-  const {count, auth} = useMainContext()
+  const {count, auth,search,setSearch} = useMainContext()
   return (
     <Navbar collapseOnSelect sticky='top'  bg="light" expand='none' className="bg-opacity-50">
       <Container fluid className='px-4'>
@@ -48,6 +48,8 @@ const StoreHeader = () => {
                   placeholder="Search"
                   className="me-2 border-success"
                   aria-label="Search"
+                  value={search}
+                  onChange={(e)=>setSearch(e.target.value)}
                 />
               </div>
               <NavLink eventKey={1}>

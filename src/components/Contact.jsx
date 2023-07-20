@@ -1,7 +1,10 @@
 // Component holding the contact for and contact details of the company
-import { Col, Container, FloatingLabel,Button, Form, FormControl, Row } from 'react-bootstrap';
+import { Col, Container, FloatingLabel, Button, Form, FormControl, Row } from 'react-bootstrap';
+import useMainContext from '../hooks/useMainContext';
 
-const Contact = () => {
+const Contact = () =>
+{
+  const {firstName,surname,setFirstName,setSurname,phoneNumber,setPhoneNumber,email,setEmail,message,setMessage,handleContact} = useMainContext()
   return (
     <div className='vh-100 d-flex align-items-center'>
       <Container fluid>
@@ -15,33 +18,61 @@ const Contact = () => {
             <Form>
               <Row className='g-2'>
                 <Col xs={12} md={6} className='mx-auto'>
-                  <FloatingLabel controlId='floatingInputGrid' label="Surname">
-                    <FormControl  placeholder='Enter your surname' type='text'/>
+                  <FloatingLabel controlId='surname' label="Surname">
+                    <FormControl
+                      placeholder='Enter your surname'
+                      type='text'
+                      value={ surname }
+                      onChange={(e)=>setSurname(e.target.value)}
+                    />
                   </FloatingLabel>
                 </Col>
                 <Col xs={12} md={6} className='mx-auto'>
-                    <FloatingLabel controlId='floatingInputGrid' label="Firstname">
-                      <FormControl placeholder='Enter your surname' type='text' />
-                    </FloatingLabel>
-                  </Col>
-                  <Col xs={12} md={6} className='mx-auto'>
-                    <FloatingLabel controlId='floatingInputGrid' label="Phone Number">
-                      <FormControl placeholder='Enter your phone number' type='tel'  />
-                    </FloatingLabel>
-                  </Col>
-                  <Col xs={12} md={6} className='mx-auto'>
-                    <FloatingLabel controlId='floatingInputGrid' label="Email">
-                      <FormControl placeholder='Enter your email address' type='email'  />
-                    </FloatingLabel>
-                  </Col>
-                  <Col xs={ 12 } md={12} className='mx-auto'>
-                    <FloatingLabel controlId='floatingInputGrid' label="Your Message">
-                        <FormControl placeholder='Enter your message' type='text' as='textarea' rows={ 4 } style={ {minHeight: '100px'} } />
-                    </FloatingLabel>
-                  </Col>
-                  <Col xs={ 12 }  className='text-end'>
-                    <Button variant='outline-success' className=' text-capitalize'>send your message</Button>
-                  </Col>
+                  <FloatingLabel controlId='firstname' label="Firstname">
+                    <FormControl
+                      placeholder='Enter your surname'
+                      type='text'
+                      value={ firstName }
+                      onChange={(e)=>setFirstName(e.target.value)}
+                    />
+                  </FloatingLabel>
+                </Col>
+                <Col xs={12} md={6} className='mx-auto'>
+                  <FloatingLabel controlId='phoneNumber' label="Phone Number">
+                    <FormControl
+                      placeholder='Enter your phone number'
+                      type='tel'
+                      value={ phoneNumber }
+                      onChange={(e)=>setPhoneNumber(e.target.value)}
+                    />
+                  </FloatingLabel>
+                </Col>
+                <Col xs={12} md={6} className='mx-auto'>
+                  <FloatingLabel controlId='email' label="Email">
+                    <FormControl
+                      placeholder='Enter your email address'
+                      type='email'
+                      value={ email }
+                      onChange={(e)=>setEmail(e.target.value)}
+                    />
+                  </FloatingLabel>
+                </Col>
+                <Col xs={ 12 } md={12} className='mx-auto'>
+                  <FloatingLabel controlId='message' label="Your Message">
+                    <FormControl
+                      placeholder='Enter your message'
+                      type='text'
+                      as='textarea'
+                      rows={ 4 }
+                      style={ { minHeight: '100px' } }
+                      value={ message }
+                      onChange={(e)=>setMessage(e.target.value)}
+                    />
+                  </FloatingLabel>
+                </Col>
+                <Col xs={ 12 }  className='text-end'>
+                  <Button variant='outline-success' className=' text-capitalize' onClick={handleContact}>send your message</Button>
+                </Col>
               </Row>
             </Form>
           </Col>
