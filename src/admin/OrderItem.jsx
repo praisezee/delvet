@@ -7,7 +7,7 @@ import { BsPencil, BsTrash } from 'react-icons/bs';
 const OrderItem = ( { item, count } ) =>
 {
   const [ user, setUser ] = useState( {} )
-  const [ products, setProducts ] = useState( [] )
+  const [ products, setProducts ] = useState( JSON.parse(item.products) )
   //state for edit and delete order
   const [ editOrderModal, setEditOrderModal ] = useState( false )
   const [deleteOrderModal,setDeleteOrderModal] = useState(false)
@@ -32,7 +32,6 @@ const OrderItem = ( { item, count } ) =>
       try {
         const response = await axios.get( `/auth/${ item.user_id }` )
         setUser( response.data )
-        setProducts(JSON.parse(item.products))
       } catch (err) {
         console.error(err)
       }
