@@ -21,8 +21,8 @@ import tiamulinFuramate from '../../assets/img/tiamulin_furamate.png'
 import trimethoprim from '../../assets/img/trimethoprim.png'
 import tylosinPhosphate from '../../assets/img/tylosin_phosphate.png'
 import tylosinTartrate from '../../assets/img/tylosin_tartrate.png';
+import { createRequire } from 'module';
 
-
-
+const require = createRequire(import.meta.url);
 
 export { amoxicillinTrihydrate, amproliumHcl, cephalexin, colistinSulphate, doxycyclineHyclate,enrofloxacin, fosfomycinCalcium,furaltadoneHydrochloride, furazolidone,gentamycinSulphate,neomycinSulphate,nystatine,oxytetracycline,sulfaquinoxalineSodium,sulphamethoxazole,tiamulinFeramateHyd,tiamulinFuramate,trimethoprim,tylosinPhosphate,tylosinTartrate };
