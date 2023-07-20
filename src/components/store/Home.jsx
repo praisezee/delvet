@@ -7,12 +7,12 @@ import ProductCarousel from './ProductCarousel';
 
 const StoreHome = () =>
 {
-  const {products} = useMainContext()
+  const {searchedResult} = useMainContext()
   return (
     <main className='h-screen'>
       <ProductCarousel/>
-      { products?.length ? (
-        <Products products={products} text='Our product'/>
+      { searchedResult?.length ? (
+        <Products products={searchedResult} text='Our product'/>
       ): (
         <div className="h-screen d-flex align-items-center justify-content-center">
           <p className="p-5 shadow-sm border border-sucess h4 fw-bold text-uppercase rounded w-75 mx-auto text-center">Ops! there is no product to display at the moment</p>

@@ -10,7 +10,6 @@ const MainContext = createContext( {} ); // create context object
 
 export const MainProvider = ( { children } ) =>
 {
-    
       const navigate = useNavigate();
       const location = useLocation()
       const from = location.state?.from?.pathname || "store";
@@ -39,7 +38,26 @@ export const MainProvider = ( { children } ) =>
       const [variant,  setVariant] = useState('')
       const [address,setAddress] =useState('')
       const [active, setActive] = useState(false)
-      const [addressModal, setAddressModal] = useState(false)
+      const [ addressModal, setAddressModal ] = useState( false )
+      
+
+      //state for the searchbox
+      const [ search, setSearch ] = useState( '' )
+      const [searchedResult, setSearchResult] = useState([])
+      
+      useEffect( () =>
+      {
+            
+            const filterdProduct = products.filter( product => (product.name.toLowerCase()).includes( search.toLowerCase() ) || (product.category.toLowerCase()).includes( search.toLowerCase() ) )
+            setSearchResult(filterdProduct.reverse())
+            
+      },[products,search])
+
+      //states for contact form
+      const [firstName, setFirstName] = useState('')
+      const [surname, setSurname] = useState('')
+      const [ message, setMessage ] = useState( '' )
+      
 
       //This use effect runs once when the component mounts to get the products from the database
       useEffect( () =>
@@ -73,7 +91,7 @@ export const MainProvider = ( { children } ) =>
       {
             setIsLoading(true)
             try {
-                  await axios.post( '/auth/register', JSON.stringify( { name, email, phoneNumber, password } ), {
+                  await axios.post( '/register', JSON.stringify( { name, email, phoneNumber, password } ), {
                         headers: { 'Content-Type': 'application/json' },
                         withCredentials: true
                         } );
@@ -124,6 +142,36 @@ export const MainProvider = ( { children } ) =>
                         }
                   }
       };
+
+      //contact form button
+      const handleContact = async () =>
+      {
+            try {
+                  const res = await axios.post('/contact', JSON.stringify({firstName,surname,phoneNumber,email,message}),{
+                        withCredentials: true,
+                        headers: {
+                              "Content-Type":"application/json"
+                        }
+                  } )
+                  const result = await res.data
+                  console.log(result)
+            } catch (err) {
+                  console.error(err)
+            }
+      }
+
+      //end of contact button
+
+      // Book now button on api products
+      const bookNow = () =>
+      {
+            if ( !auth ) return navigate( '../contact' )
+            
+            setEmail(auth.email)
+            setPhoneNumber( auth.phoneNumber )
+            navigate('../contact')
+      }
+      //end of book now button function
       
       const handleAdminActive = () =>
       {
@@ -392,7 +440,7 @@ export const MainProvider = ( { children } ) =>
             }, [ addToCart, cart ] );
             return (
                   <MainContext.Provider value={ {
-                        products, addToCart, cart, cartSubTotal, cartTax, cartTotal, decrement, increment, deleteItem, clearAll, count, auth, setAuth,name, setName,email, setEmail,phoneNumber, setPhoneNumber,password, setPassword,success,errMsg, setErrMsg,handleRegister,verifyEmail,isLoading,handleLogin, confirm, setConfirm, setCode, loading, checkout, toast, setToast, variant, text, handleAdminActive,handleLoginActive, active,handleAdminLogin, address, addressModal, setAddress,toggleAddressModal,toggleAddressModalClose
+                        products, addToCart, cart, cartSubTotal, cartTax, cartTotal, decrement, increment, deleteItem, clearAll, count, auth, setAuth,name, setName,email, setEmail,phoneNumber, setPhoneNumber,password, setPassword,success,errMsg, setErrMsg,handleRegister,verifyEmail,isLoading,handleLogin, confirm, setConfirm, setCode, loading, checkout, toast, setToast, variant, text, handleAdminActive,handleLoginActive, active,handleAdminLogin, address, addressModal, setAddress,toggleAddressModal,toggleAddressModalClose,firstName,setFirstName,surname,setSurname,bookNow,handleContact,message,setMessage,search,setSearch,searchedResult
                   } }>
                         { children }
                   </MainContext.Provider>
